@@ -7,10 +7,21 @@ import { PORT } from "./config.js";
 
 const app = express();
 const server = http.createServer(app);
-const io = new SocketServer(server);
+const io = new SocketServer(server, {
+  cors: {
+    // Permite que el servidor se conecte con el Frontend
+    origin: "*",
+  },
+});
 // Middlewares
 app.use(cors());
 app.use(morgan("dev"));
 
-app.listen(PORT);
-console.log("Server Listening in port" + PORT);
+// Se ejecuta cuando ocurra el evento
+io.on("connection", (socket) => {
+  console.log(socket.id);
+  console.log("A user connected");
+});
+
+server.listen(PORT);
+console.log("Server Listening in port " + PORT);

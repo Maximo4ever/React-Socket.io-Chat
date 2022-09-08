@@ -1,4 +1,8 @@
 import "./App.css";
+import io from "socket.io-client";
+
+// Puente de conexion, para escuchar eventos y enviar eventos.
+const socket = io("http://localhost:4000");
 
 function App() {
   return (
