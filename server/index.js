@@ -22,9 +22,11 @@ io.on("connection", (socket) => {
   console.log("A user connected, ID: " + socket.id);
   // Escucha el mensaje emitido por el Frontend
   socket.on("message", (message) => {
-    console.log(message);
     // Envialo a los demas clientes (Front)
-    socket.broadcast.emit("message", message);
+    socket.broadcast.emit("message", {
+      body: message,
+      from: socket.id,
+    });
   });
 });
 
