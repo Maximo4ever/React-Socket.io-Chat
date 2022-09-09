@@ -46,22 +46,35 @@ function App() {
   }, [messages]);
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
+    <div className="h-screen bg-zinc-800 text-white flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-10/12 max-w-md bg-zinc-900 p-10"
+      >
+        <h1 className="text-2xl mb-1">Chat App</h1>
+        <ul className="h-[36rem] overflow-y-auto overscroll-y-none">
+          {messages.map((message, index) => (
+            <li
+              key={index}
+              className={`my-2 table p-2 ${
+                message.from === "Me" ? "bg-sky-700 ml-auto" : "bg-slate-600"
+              }`}
+            >
+              <p>
+                <span className={`mr-1 font-semibold`}>{message.from}:</span>
+                {message.body}
+              </p>
+            </li>
+          ))}
+        </ul>
         <input
           type="text"
           onChange={(e) => setMessage(e.target.value)}
           value={message}
+          className="border-2 border-zinc-500 p-2 text-black w-4/5 mt-6"
         />
-        <button>Send</button>
+        <button className="bg-blue-500 w-1/5 py-2">Send</button>
       </form>
-      {messages.map((message, index) => (
-        <div key={index}>
-          <p>
-            {message.from}: {message.body}
-          </p>
-        </div>
-      ))}
     </div>
   );
 }
